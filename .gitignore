@@ -89,3 +89,9 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Docker Data
+.db
+
+# Dotenv
+.env
