@@ -92,6 +92,9 @@ $RECYCLE.BIN/
 
 # Docker Data
 .db
+.db_data
+.mysql
+.mysql_data
 
 # Dotenv
 .env
