@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
 RUN a2enmod rewrite
 
 # Copy the Apache configuration file to the container
-COPY apache.conf /etc/apache2/sites-enabled/000-default.conf
+COPY docker_apache.conf /etc/apache2/sites-enabled/000-default.conf
 
 # Install any extensions you need
 RUN docker-php-ext-install mysqli pdo pdo_mysql
@@ -24,8 +24,11 @@ RUN curl -L -o /tmp/ts-website.zip https://github.com/Wruczek/ts-website/release
 # Unzip the downloaded file to a temporary directory
 RUN unzip /tmp/ts-website.zip -d /tmp/
 
-# Move the ts-website directory to the Nginx document root
+# Move the ts-website directory to the Apache document root
 RUN mv /tmp/ts-website/* /var/www/html/
+
+# Copy the HTML-Rules into the webapp
+COPY docker_rules.latte /var/www/html/private/templates/rules.latte
 
 # Set permissions for the Apache web server
 RUN chown -R www-data:www-data /var/www/html

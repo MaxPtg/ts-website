@@ -2,37 +2,37 @@ version: "3.9"
 
 services:
   db:
-    container_name: "${CONTAINER_PREFIX:tswebsite}_db"
+    container_name: "${CONTAINER_PREFIX:-tswebsite}_db"
     image: mysql:5.7.44
     environment:
-      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD:48Y3aAVAWYs8izPd}"
-      MYSQL_DATABASE: "${DB_DATABASE:tswebsite}"
-      MYSQL_USER: "${DB_USERNAME:tswebsite}"
-      MYSQL_PASSWORD: "${DB_PASSWORD:tswebsite}"
+      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD:-48Y3aAVAWYs8izPd}"
+      MYSQL_DATABASE: "${DB_DATABASE:-tswebsite}"
+      MYSQL_USER: "${DB_USERNAME:-tswebsite}"
+      MYSQL_PASSWORD: "${DB_PASSWORD:-tswebsite}"
     volumes:
-      - ./docker/db_data:/var/lib/mysql
+      - .db_data:/var/lib/mysql
     ports:
       - "3306:3306"
 
   webserver:
-    container_name: "${CONTAINER_PREFIX:tswebsite}_web"
+    container_name: "${CONTAINER_PREFIX:-tswebsite}_web"
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "${WEB_EXTERNAL_PORT:8080}:80"
+      - "${WEB_EXTERNAL_PORT:-8080}:80"
     depends_on:
       - db
 
   phpmyadmin:
-    container_name: "${CONTAINER_PREFIX:tswebsite}_admin"
+    container_name: "${CONTAINER_PREFIX:-tswebsite}_admin"
     image: phpmyadmin/phpmyadmin
     links:
       - db
     ports:
-      - "${ADMIN_EXTERNAL_PORT:8081}:80"
+      - "${ADMIN_EXTERNAL_PORT:-8081}:80"
     environment:
       PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:48Y3aAVAWYs8izPd}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-48Y3aAVAWYs8izPd}
     depends_on:
       - db

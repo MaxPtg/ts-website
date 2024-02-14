@@ -34,7 +34,7 @@
 
 #### Docker Deployment
 
-You can deploy TS-website using `Docker` and `docker-compose`. The `docker-compose.yml` file is included in the repository. Before setting up the containers, you need to create a `.env` file in the root directory of the project. There is an example `.env` file in the repository. You can use it as a template.
+You can deploy TS-website using `Docker` and `docker-compose`. The `docker-compose.yml` file is included in the repository. Before setting up the containers, you need to create a `.env` file in the root directory of the project. There is an `.env.example` file in root of this repository. You can use it as a template; just copy it to `.env` and fill in the required values.
 
 After creating the `.env` file, you can start the containers using the following command:
 
@@ -43,6 +43,8 @@ docker-compose up -d --build
 ```
 
 > **Note:** On step 3 (Database Details) of the installer, you need to use `db` as the database hostname.
+
+> **Note:** If you want to show your TeamSpeak rules within ts-website, you need to edit the `docker/rules.latte` file and replace the content with your own rules.
 
 ### Other stuff
 
